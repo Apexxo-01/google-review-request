@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Review Request</title>
+  <meta name="theme-color" content="#042f5f" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get("target");
+
+    if (target) {
+      window.location.href = target;
+    } else {
+      document.write("<h1>Error: No target URL provided</h1>");
+    }
+  </script>
+</head>
+<body>
+  <p>Loading...</p>
+</body>
+</html>
