@@ -8,19 +8,53 @@
   <meta name="theme-color" content="#042f5f" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    #installBtn {
+      display: none;
+      background-color: #02ceff;
+      color: #042f5f;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+  </style>
   <script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBtn').style.display = 'inline-block';
+    });
+
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+          document.getElementById('installBtn').style.display = 'none';
+        });
+      }
+    }
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
           .then(function(registration) {
-            console.log('ServiceWorker registration successful:', registration);
-          }, function(err) {
-            console.log('ServiceWorker registration failed:', err);
+            console.log('ServiceWorker registered:', registration);
           });
       });
     }
 
-    // Delay redirect to allow time for install prompt to be eligible
+    // Redirect after 3 seconds
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const target = params.get("target");
@@ -28,7 +62,7 @@
       if (target) {
         setTimeout(() => {
           window.location.href = target;
-        }, 3000); // 3-second delay
+        }, 3000);
       } else {
         document.write("<h1>Error: No target URL provided</h1>");
       }
@@ -36,6 +70,7 @@
   </script>
 </head>
 <body>
-  <p>Preparing your review form…</p>
+  <h2>Preparing your review form…</h2>
+  <button id="installBtn" onclick="installApp()">📲 Install this app</button>
 </body>
 </html>
