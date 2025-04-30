@@ -9,17 +9,33 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const target = params.get("target");
-
-    if (target) {
-      window.location.href = target;
-    } else {
-      document.write("<h1>Error: No target URL provided</h1>");
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful:', registration);
+          }, function(err) {
+            console.log('ServiceWorker registration failed:', err);
+          });
+      });
     }
+
+    // Delay redirect to allow time for install prompt to be eligible
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const target = params.get("target");
+
+      if (target) {
+        setTimeout(() => {
+          window.location.href = target;
+        }, 3000); // 3-second delay
+      } else {
+        document.write("<h1>Error: No target URL provided</h1>");
+      }
+    });
   </script>
 </head>
 <body>
-  <p>Loading...</p>
+  <p>Preparing your review form…</p>
 </body>
 </html>
