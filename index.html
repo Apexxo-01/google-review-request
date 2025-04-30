@@ -14,8 +14,8 @@
       text-align: center;
       padding: 2rem;
     }
-    #installBtn {
-      display: none;
+    #installBtn, #continueBtn {
+      display: inline-block;
       background-color: #02ceff;
       color: #042f5f;
       border: none;
@@ -23,11 +23,15 @@
       font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 1rem;
+      margin: 1rem 0.5rem;
+    }
+    #installBtn {
+      display: none;
     }
   </style>
   <script>
     let deferredPrompt;
+    let targetUrl = "";
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -45,6 +49,12 @@
       }
     }
 
+    function continueToForm() {
+      if (targetUrl) {
+        window.location.href = targetUrl;
+      }
+    }
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
@@ -54,23 +64,21 @@
       });
     }
 
-    // Redirect after 3 seconds
+    // Store the redirect URL
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const target = params.get("target");
+      targetUrl = params.get("target");
 
-      if (target) {
-        setTimeout(() => {
-          window.location.href = target;
-        }, 3000);
-      } else {
-        document.write("<h1>Error: No target URL provided</h1>");
+      if (!targetUrl) {
+        document.body.innerHTML = "<h1>Error: No target URL provided</h1>";
+        document.getElementById('continueBtn').style.display = 'none';
       }
     });
   </script>
 </head>
 <body>
-  <h2>Preparing your review form…</h2>
+  <h2>You're ready to install the review app</h2>
   <button id="installBtn" onclick="installApp()">📲 Install this app</button>
+  <button id="continueBtn" onclick="continueToForm()">➡️ Open Review Form</button>
 </body>
 </html>
