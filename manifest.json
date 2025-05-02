@@ -2,7 +2,7 @@
 {
   "name": "Google Review Request",
   "short_name": "ReviewForm",
-  "start_url": "/",
+  "start_url": "https://app.apexxo.com/v2/preview/8JbeC7Q69O3vyfh1qu4j",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#042f5f",
