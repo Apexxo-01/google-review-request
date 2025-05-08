@@ -10,9 +10,9 @@ const AppLinkPage = () => {
   useEffect(() => {
     localStorage.setItem("clientSlug", clientSlug || "");
 
-    const links: Record<string, string> = {
-      "smith-hvac": "https://example.com/smith-hvac-review-form"
-    };
+    import { getReviewUrl } from "../linkHelper";
+
+const formUrl = getReviewUrl(clientSlug || "") || null;
 
     const formUrl = links[clientSlug || ""] || null;
     setReviewUrl(formUrl);
