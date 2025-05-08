@@ -4,10 +4,11 @@ import AppLinkPage from "./pages/AppLinkPage";
 
 function RootRedirect() {
   const navigate = useNavigate();
+
   useEffect(() => {
-    const slug = localStorage.getItem("clientSlug");
-    if (slug) {
-      navigate(`/app/${slug}`);
+    const savedSlug = localStorage.getItem("clientSlug");
+    if (savedSlug) {
+      navigate(`/app/${savedSlug}`);
     }
   }, [navigate]);
 
