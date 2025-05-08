@@ -1,3 +1,4 @@
+// Trigger redeploy on Vercel
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLinkPage from "./pages/AppLinkPage";
 
