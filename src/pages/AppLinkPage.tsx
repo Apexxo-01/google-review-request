@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getReviewUrl } from "../linkHelper";  // ✅ MOVE THIS TO THE TOP
 
 const AppLinkPage = () => {
   const { clientSlug } = useParams<{ clientSlug: string }>();
@@ -10,12 +11,7 @@ const AppLinkPage = () => {
   useEffect(() => {
     localStorage.setItem("clientSlug", clientSlug || "");
 
-    import { getReviewUrl } from "../linkHelper";
-
-    const formUrl = getReviewUrl(clientSlug || "");
-
-
-    const formUrl = links[clientSlug || ""] || null;
+    const formUrl = getReviewUrl(clientSlug || "");  // ✅ NOW WORKS
     setReviewUrl(formUrl);
 
     const timeout = setTimeout(() => {
