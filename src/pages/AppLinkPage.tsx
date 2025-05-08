@@ -12,7 +12,8 @@ const AppLinkPage = () => {
 
     import { getReviewUrl } from "../linkHelper";
 
-const formUrl = getReviewUrl(clientSlug || "") || null;
+    const formUrl = getReviewUrl(clientSlug || "");
+
 
     const formUrl = links[clientSlug || ""] || null;
     setReviewUrl(formUrl);
