@@ -8,9 +8,11 @@ function RootRedirect() {
     const storedSlug = localStorage.getItem("clientSlug");
     if (storedSlug) {
       navigate(`/app/${storedSlug}`);
+    } else {
+      navigate("/404");
     }
   }, [navigate]);
-  return <div>Loading...</div>;
+  return <div>Loading app...</div>;
 }
 
 function App() {
