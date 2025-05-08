@@ -1,11 +1,24 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import AppLinkPage from "./pages/AppLinkPage";
+
+function RootRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const slug = localStorage.getItem("clientSlug");
+    if (slug) {
+      navigate(`/app/${slug}`);
+    }
+  }, [navigate]);
+
+  return <div>Loading app...</div>;
+}
 
 function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<div>Loading app...</div>} />
+        <Route path="/" element={<RootRedirect />} />
         <Route path="/app/:clientSlug" element={<AppLinkPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
