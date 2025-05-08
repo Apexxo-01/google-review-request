@@ -1,3 +1,3 @@
-# Trigger deploy
+# Review App
 
-This is a placeholder to force a Vercel redeploy.
+This is a working React + Vite + HashRouter + PWA setup for Vercel.

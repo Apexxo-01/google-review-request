@@ -7,14 +7,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        sw: resolve(__dirname, 'public/service-worker.js')  // ✅ include service worker
+        main: resolve(__dirname, 'index.html')
       }
-    }
-  },
-  server: {
-    fs: {
-      allow: ['.']
     }
   }
 });
