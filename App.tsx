@@ -1,16 +1,14 @@
-import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import AppLinkPage from "./pages/AppLinkPage";
+import { useEffect } from "react";
 
 function RootRedirect() {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    const savedSlug = localStorage.getItem("clientSlug");
-    if (savedSlug) {
-      navigate(`/app/${savedSlug}`);
+    const slug = localStorage.getItem("clientSlug");
+    if (slug) {
+      window.location.hash = `#/app/${slug}`;
     }
-  }, [navigate]);
+  }, []);
 
   return <div>Loading app...</div>;
 }
