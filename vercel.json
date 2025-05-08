@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/app/:slug", "destination": "/" }
-  ]
-}
