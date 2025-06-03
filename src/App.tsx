@@ -4,9 +4,19 @@ import { useEffect } from "react";
 
 function RootRedirect() {
   useEffect(() => {
-    const savedSlug = localStorage.getItem("clientSlug");
-    if (savedSlug) {
-      window.location.hash = `#/app/${savedSlug}`;
+    const urlParams = new URLSearchParams(window.location.search);
+    const slugFromUrl = urlParams.get('client');
+
+    if (slugFromUrl) {
+      localStorage.setItem("clientSlug", slugFromUrl);
+      window.location.hash = `#/app/${slugFromUrl}`;
+    } else {
+      const savedSlug = localStorage.getItem("clientSlug");
+      if (savedSlug) {
+        window.location.hash = `#/app/${savedSlug}`;
+      } else {
+        console.log("No client slug found.");
+      }
     }
   }, []);
 
